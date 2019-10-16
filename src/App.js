@@ -74,10 +74,12 @@ function App() {
                 <div className="dashboard-calendar">
                   <div className="cal-box">
                     <span>今日实时</span>
-                    <span className="cal-box-num">9334.9万</span>
+                    <span className="cal-box-num">
+                      {`${get(data, 'totalBox')}${get(data, 'totalBoxUnit')}`}
+                    </span>
                   </div>
                   <p className="cal-update-time">
-                    <span>北京时间 22:09:38</span>
+                    <span>{get(data, 'updateInfo')}</span>
                   </p>
                 </div>
               </div>
