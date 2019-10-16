@@ -169,9 +169,9 @@ function App() {
                             </div>
                           </td>
                           <td className="realtime">{item.boxInfo}</td>
-                          <td>&lt;{item.boxRate}</td>
+                          <td>{item.boxRate}</td>
                           <td>{item.showInfo}</td>
-                          <td>&lt;{item.showRate}</td>
+                          <td>{item.showRate}</td>
                           <td>{item.avgShowView}</td>
                           <td>{item.seatRate}</td>
                         </tr>
