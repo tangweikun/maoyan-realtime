@@ -8,6 +8,9 @@ function App() {
   const [selectedMovie, setSelectedMovie] = useState([]);
   const [data, setData] = useState({});
 
+  // 票房类型：SUM_BOX -> 综合票房; SPLIT_SUM_BOX -> 分账票房
+  const [selectedType, setSelectedType] = useState('SUM_BOX');
+
   useEffect(() => {
     getMovies();
 
@@ -28,8 +31,22 @@ function App() {
         <div className="dashboard">
           <div className="dashboard-title">
             <span className="dashboard-nav">
-              <span className="active">综合票房</span>
-              <span className="">分账票房</span>
+              <span
+                className={selectedType === 'SUM_BOX' ? 'active' : ''}
+                onClick={() => {
+                  setSelectedType('SUM_BOX');
+                }}
+              >
+                综合票房
+              </span>
+              <span
+                className={selectedType === 'SPLIT_SUM_BOX' ? 'active' : ''}
+                onClick={() => {
+                  setSelectedType('SPLIT_SUM_BOX');
+                }}
+              >
+                分账票房
+              </span>
             </span>
             <div className="dashboard-title-clock">
               <span className="sprite sprite-logo"></span>
@@ -56,7 +73,12 @@ function App() {
                 <div className="detail-part-box">
                   <div className="detail-box">
                     <p className="detail-realtime-desc">综合票房</p>
-                    <p className="detail-realtime">{selectedMovie.boxInfo}万</p>
+                    <p className="detail-realtime">
+                      {selectedType === 'SUM_BOX'
+                        ? selectedMovie.boxInfo
+                        : selectedMovie.splitBoxInfo}
+                      万
+                    </p>
                     <p className="detail-realtime-ratio">
                       票房占比{selectedMovie.boxRate}
                     </p>
@@ -87,7 +109,12 @@ function App() {
                   <div className="cal-box">
                     <span>今日实时</span>
                     <span className="cal-box-num">
-                      {`${get(data, 'totalBox')}${get(data, 'totalBoxUnit')}`}
+                      {selectedType === 'SUM_BOX'
+                        ? `${get(data, 'totalBox')}${get(data, 'totalBoxUnit')}`
+                        : `${get(data, 'splitTotalBox')}${get(
+                            data,
+                            'splitTotalBoxUnit',
+                          )}`}
                     </span>
                   </div>
                   <p className="cal-update-time">
@@ -111,7 +138,10 @@ function App() {
                       </div>
                     </th>
                     <th>
-                      <div className="theader">综合票房(万)</div>
+                      <div className="theader">
+                        {selectedType === 'SUM_BOX' ? '综合票房' : '分账票房'}
+                        (万)
+                      </div>
                     </th>
                     <th>
                       <div className="theader">票房占比</div>
@@ -172,8 +202,16 @@ function App() {
                               </div>
                             </div>
                           </td>
-                          <td className="realtime">{item.boxInfo}</td>
-                          <td>{item.boxRate}</td>
+                          <td className="realtime">
+                            {selectedType === 'SUM_BOX'
+                              ? item.boxInfo
+                              : item.splitBoxInfo}
+                          </td>
+                          <td>
+                            {selectedType === 'SUM_BOX'
+                              ? item.boxRate
+                              : item.splitBoxRate}
+                          </td>
                           <td>{item.showInfo}</td>
                           <td>{item.showRate}</td>
                           <td>{item.avgShowView}</td>
