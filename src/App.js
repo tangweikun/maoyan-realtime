@@ -121,7 +121,7 @@ function App() {
                 <div className="movielist">
                   <table className="dashboard-table">
                     <tbody>
-                      <tr className="selected-movie">
+                      {/* <tr className="selected-movie">
                         <td className="moviename-td" title="打过长江去">
                           <div>
                             <div className="moviename-num">
@@ -145,7 +145,7 @@ function App() {
                         <td>1.7%</td>
                         <td>13</td>
                         <td>11.6%</td>
-                      </tr>
+                      </tr> */}
 
                       {movies.map((item, index) => (
                         <tr className="" key={item.movieId}>
